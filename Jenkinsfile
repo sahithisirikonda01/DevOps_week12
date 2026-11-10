@@ -26,7 +26,12 @@ pipeline {
             }
         }
 
-        stage('Docker Login') {
+        
+
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                echo "Pushing Docker Image"
+stage('Docker Login') {
     steps {
         withCredentials([
             usernamePassword(
@@ -35,17 +40,13 @@ pipeline {
                 passwordVariable: 'DOCKERHUB_TOKEN'
             )
         ]) {
-            powershell '''
-                $env:DOCKERHUB_TOKEN | docker login -u $env:DOCKERHUB_USER --password-stdin
+            bat '''
+                @echo off
+                echo %DOCKERHUB_TOKEN%| docker login -u %DOCKERHUB_USER% --password-stdin
             '''
         }
     }
 }
-
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                echo "Pushing Docker Image"
-
                 bat 'docker push sahithisirikonda01/week12-registration:v1'
             }
         }
