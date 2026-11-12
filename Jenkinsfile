@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo "Building Docker Image"
                 bat 'docker build -t sahithisirikonda01/week12-registration:v1 .'
-                bat 'docker run -p sahithisirikonda01/week12-registration:v1'
+                bat 'docker run -p 5000:5000 sahithisirikonda01/week12-registration:v1'
             }
         }
 
